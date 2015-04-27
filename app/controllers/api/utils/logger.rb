@@ -15,7 +15,7 @@ class API::Utils::Logger
     # you can find the subscriber at config/initializers/grape_notifications.rb
     ActiveSupport::Notifications.instrument "grape.request", payload do
       @app.call(env).tap do |response|
-        if payload[:params] = env["api.endpoint"].params
+        if payload[:params].present? && payload[:params] = env["api.endpoint"].params
         payload[:params] = env["api.endpoint"].params.to_hash 
         payload[:params].delete("route_info")
         payload[:params].delete("format")
